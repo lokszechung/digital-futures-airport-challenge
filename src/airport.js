@@ -3,7 +3,7 @@ export default class Airport {
   planes = []
   weather 
   
-  land(plane, weather){
+  land(plane){
     if(this.isAtFullCapacity()) return 
 
     if(this.planes.find(p => p.id === plane.id)) return 
@@ -13,7 +13,7 @@ export default class Airport {
     this.planes.push(plane)
   }
 
-  takeOff(plane, weather){
+  takeOff(plane){
     const index = this.planes.indexOf(plane)
     if (index === -1) return
 

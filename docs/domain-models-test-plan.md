@@ -78,10 +78,10 @@ _Note: capacity set to 5 by default_
 
 **5\. As an Air Traffic Contoller, I want to tell a plane to land at an airport if it is not already at the airport, so there aren't any errors**
 
-| Objects | Properties            | Messages            | Output   |
-| ------- | --------------------- | ------------------- | -------- |
-| Plane   | planeId @String       |                     |          |
-| Airport | planes @Array[@Plane] | planeExists(@Plane) | @Boolean |
+| Objects | Properties            | Messages     | Output   |
+| ------- | --------------------- | ------------ | -------- |
+| Plane   | planeId @String       |              |          |
+| Airport | planes @Array[@Plane] | land(@Plane) | @Boolean |
 
 - Test 9 - When landing a plane already at the airport, planes array should be the same length
 
@@ -89,10 +89,10 @@ _Note: capacity set to 5 by default_
 
 **6\. As an Air Traffic Contoller, I want to tell a plane to take off from an airport only if it is already at the airport, so there aren't any errors**
 
-| Objects | Properties            | Messages            | Output   |
-| ------- | --------------------- | ------------------- | -------- |
-| Plane   | planeId @String       |                     |          |
-| Airport | planes @Array[@Plane] | planeExists(@Plane) | @Boolean |
+| Objects | Properties            | Messages        | Output   |
+| ------- | --------------------- | --------------- | -------- |
+| Plane   | planeId @String       |                 |          |
+| Airport | planes @Array[@Plane] | takeOff(@Plane) | @Boolean |
 
 - Test 10 - When a plane not at the the airport tries to take off, planes array should be the same length
 
@@ -171,3 +171,21 @@ Planes must not be able to take off if the weather is stormy
 |         | planes @Array[@Plane] | takeOff(@Plane) | @undefined |
 
 - Test 19 - A plane trying to taking off during stormy weather should not change planes array length
+
+---
+
+<br>
+
+## Using Kanban board
+
+I started by adding User Stories as cards in the 'Backlog' section of the Kanban Board.
+![backlog](../images/backlog.png)
+
+Then moved it into 'Doing' section when producing domain models and test plans.
+![doing](../images/doing.png)
+
+When it came to writing TDD code, the card was moved into 'Testing' section.
+![testing](../images/testing.png)
+
+When each User Story was completed, it was moved into the 'Done' section.
+![done](../images/done.png)
