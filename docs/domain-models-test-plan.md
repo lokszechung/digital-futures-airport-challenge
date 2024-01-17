@@ -1,202 +1,173 @@
 # Domain Models and Test Plan
 
-Core Features
-The Business Analyst team working with the client has identified the following features that should be implemented:
+### Problems the software solves
 
-A representation of the airport is needed in the software that defines the maximum capacity of the number of planes that can be at the airport at any one time
-This capacity should have the ability to be overridden as appropriate
-Air Traffic Controllers need to be able to:
-Instruct a plane to land at an airport if the airport is not full and the plane is not already at the airport
-Instruct a plane to take off from an airport as long as it is currently at the airport
+This software will solve problems pertaining to the control of the flow of planes and plane capacity at an airport and boost efficiency and performance of the airport.
 
-Explain the benefits of the software to the client - why they need it and how it will help them. You should include:
-The problem that the software is solving
-The benefits that the software will bring to the client
-The risks associated with the software
-From the requirements listed above, devise a set of user stories that describe the functionality that the client has requested
-From these user stories, create a domain model to describe how the objects will use messages to communicate with one another
-Using a test-driven approach, implement the code necessary to implement the functionality described in the user stories
-Create a program that will run in the terminal (without any user input) that demonstrates the functionality of the code based on the user stories
+1. By defining the maximum capacity at this airport, it ensures that all planes can take off and land safely without having to manually monitor the number of planes.
+2. Allows planes to efficiently board and unboard passengers as there will not be a queue of planes waiting for a gate. This reduces delays improves customer experience.
+3. By implementing a cap in number planes, it will also reduce the number of people in the airport, ensuring is not overcrowded, which improves safety and customer experience.
+4. Controlling the number of planes at the airport leads to reduced noise and air pollution in the area.
+5. Reduces stress of passengers and airport staff alike!
 
-Problem the software solves:
+### Benefits of the software:
 
-This software will solve problems pertaining to the control of the flow of planes and plane capacity at an airport and efficiency of airport functionality and performance.
+1. It will automatically track the number of planes at the airport, so human error will be minimised.
+2. A manual override is included for special circumstances, such as emergency landings or airport expansion.
 
-1. by defining the maximum capacity at this airport, it ensures that all planes can take off and land safely without having to manually monitor the number of planes
-2. it also allows planes to efficiently board and unboard passengers as there will not be a queue of planes waiting for a gate. This reduces delays improves customer experience
-3. By implementing a cap in number planes, it wll also reflect in the number of poeple in the airport , ensuring is not overcrowded, which improves safety and customer experience
-4. reduces stress of passengers and airport staff alike!
-5. pollution (noise and air) is reduced in the area
+### Risks of the software:
 
-Benefits of the software:
+1. Override might not be reverted after use, or perhaps negligent use of the override may deem the software redundant.
+2. Weather conditions need to be manually updated, so there is a risk of allowing planes to land and take off during stormy weather.
 
-1. It will track the number of planes at the airport, so human error will be minimised
-2. a manual override is included for special circumstances, such as emergency landings.
+---
 
-Risks of the software:
+<br>
 
-1. Override might not be turned off after use, or perhaps negligent use of the override may deem the software redundant
-2.
+## Core Features
 
-Requirements
-
-1. A representation of the airport is needed in the software that defines the maximum capacity of the number of planes that can be at the airport at any one time
-
-2. This capacity should have the ability to be overridden as appropriate
-
-Air Traffic Controllers need to be able to: 3. Instruct a plane to land at an airport if the airport is not full and the plane is not already at the airport 4. Instruct a plane to take off from an airport as long as it is currently at the airport
-
-## User Stories
-
-1. As an ATC, I want to tell a plane to land at an airport, so that passengers can disembark
-
-2. As an ATC, I want to tell a plane to take off from an airport, so that it can be on its way to the next destination and make room for consequent planes
-
-3. As an ATC, I want to know when the airport is at capacity, so that the airport is not overfilled with planes
-
-4. As an ATC, I want to tell a plane to land at an airport if it is not full, so as to control the flow of planes at the airport
-
-5. As an ATC, I want to tell a plane not to land at an airport if it is full, so as to control the capacity of planes at the airport
-
-6. As an ATC, I want to tell a plane to land at an airport if it is not already at the airport, so there aren't any errors
-
-7. As an ATC, I want to tell a plane to take off from an airport if it is already at the airport, so there aren't any errors
-
-8. As an ATC, I want to be able to override the capacity, so that planes can land in emergency circumstances
-
-## Domain Models
-
-1. As an ATC, I want to tell a plane to land at an airport, so that passengers can disembark
-
-| Objects | Properties                   | Messages          | Output     |
-| ------- | ---------------------------- | ----------------- | ---------- |
-| Plane   | planeId @String              |                   |            |
-| Airport | airportPlanes @Array[@Plane] | landPlane(@Plane) | @undefined |
-
-2. As an ATC, I want to tell a plane to take off from an airport, so that it can be on its way to the next destination and make room for consequent planes
-
-| Objects | Properties                   | Messages        | Output     |
-| ------- | ---------------------------- | --------------- | ---------- |
-| Plane   | planeId @String              |                 |            |
-| Airport | airportPlanes @Array[@Plane] | takeoff(@Plane) | @undefined |
-
-3. As an ATC, I want to know when the airport is at capacity, so that the airport is not overfilled with planes
-
-| Objects | Properties                   | Messages       | Output   |
-| ------- | ---------------------------- | -------------- | -------- |
-| Airport | airportCapacity @Number      | isAtCapacity() | @Boolean |
-|         | airportPlanes @Array[@Plane] |                |          |
-
-<!-- 4. As an ATC, I want to tell a plane to land at an airport if it is not full, so as to control the flow of planes at the airport
-
-5. As an ATC, I want to tell a plane not to land at an airport if it is full, so as to control the capacity of planes at the airport -->
-
-6. As an ATC, I want to tell a plane to land at an airport if it is not already at the airport, so there aren't any errors
-
-| Objects | Properties                   | Messages            | Output   |
-| ------- | ---------------------------- | ------------------- | -------- |
-| Plane   | planeId @String              |                     |          |
-| Airport | airportPlanes @Array[@Plane] | planeExists(@Plane) | @Boolean |
-
-7. As an ATC, I want to tell a plane to take off from an airport if it is already at the airport, so there aren't any errors
-
-| Objects | Properties                   | Messages            | Output   |
-| ------- | ---------------------------- | ------------------- | -------- |
-| Plane   | planeId @String              |                     |          |
-| Airport | airportPlanes @Array[@Plane] | planeExists(@Plane) | @Boolean |
-
-8. As an ATC, I want to be able to override the capacity, so that planes can land in emergency circumstances
-
-## Test Planes
-
-1. As an ATC, I want to tell a plane to land at an airport, so that passengers can disembark
+**1\. As an Air Traffic Contoller, I want to tell a plane to land at an airport, so that passengers can disembark**
 
 | Objects | Properties            | Messages          | Output     |
 | ------- | --------------------- | ----------------- | ---------- |
 | Plane   | planeId @String       |                   |            |
 | Airport | planes @Array[@Plane] | landPlane(@Plane) | @undefined |
 
-- [ ] Plane landed in Airport increases airportPlanes array by 1
-- [ ] Plane landed in Airport exists in airportPlanes array
-<!-- - [ ] Plane without planeId is not passed into airportPlanes array
-- [ ] null item is not passed into airportPlanes array -->
+- Test 1 - Plane landed in Airport increases airportPlanes array by 1
+- Test 2 - Plane landed in Airport exists in airportPlanes array
 
-2. As an ATC, I want to tell a plane to take off from an airport, so that it can be on its way to the next destination and make room for consequent planes
+<br>
+
+**2\. As an Air Traffic Contoller, I want to tell a plane to take off from an airport, so that it can be on its way to the next destination and make room for consequent planes**
 
 | Objects | Properties            | Messages        | Output     |
 | ------- | --------------------- | --------------- | ---------- |
 | Plane   | planeId @String       |                 |            |
 | Airport | planes @Array[@Plane] | takeoff(@Plane) | @undefined |
 
-- [ ] Plane that has taken off should decrease planes array by 1
-- [ ] Plane that has taken off from the airport should not exist planes array
+- Test 3 - Plane that has taken off should decrease planes array by 1
+- Test 4 - Plane that has taken off from the airport should not exist planes array
 
-3. As an ATC, I want to know when the airport is at capacity, so that the airport is not overfilled with planes
+<br>
 
-| Objects | Properties            | Messages       | Output   |
-| ------- | --------------------- | -------------- | -------- |
-| Airport | capacity @Number      | isAtCapacity() | @Boolean |
-|         | planes @Array[@Plane] |                |          |
+**3\. As an Air Traffic Contoller, I want to know when the airport is at capacity, so that the airport is not overfilled with planes**
 
-NB: capacity set at 5 by default
+| Objects | Properties            | Messages           | Output   |
+| ------- | --------------------- | ------------------ | -------- |
+| Airport | capacity @Number      | isAtFullCapacity() | @Boolean |
+|         | planes @Array[@Plane] |                    |          |
 
-- [ ] isAtCapacity() returns true when airport is full
-- [ ] isAtCapacity() returns false when airport is not full
+_Note: capacity set to 5 by default_
 
-4. As an ATC, I want to tell a plane to land only if is not full, so as to control the flow of planes at the airport
+- Test 5 - isAtFullCapacity() returns true when airport is full
+- Test 6 - isAtFullCapacity() returns false when airport is not full
+
+<br>
+
+**4\. As an Air Traffic Contoller, I want to tell a plane to land only if is not full, so as to control the flow of planes at the airport**
 
 | Objects | Properties            | Messages     | Output     |
 | ------- | --------------------- | ------------ | ---------- |
 | Plane   | planeId @String       |              |            |
 | Airport | planes @Array[@Plane] | land(@Plane) | @undefined |
 
-- [ ] When airport is at capacity, landing a plane at the airport should not increase planes array length
-- [ ] When airport is not at capacity, landing a plane at the airport should increase planes array length by 1
+- Test 7 - When airport is at capacity, landing a plane at the airport should not increase planes array length
+- Test 8 - When airport is not at capacity, landing a plane at the airport should increase planes array length by 1
 
-6. As an ATC, I want to tell a plane to land at an airport if it is not already at the airport, so there aren't any errors
+<br>
 
-| Objects | Properties            | Messages            | Output   |
-| ------- | --------------------- | ------------------- | -------- |
-| Plane   | planeId @String       |                     |          |
-| Airport | planes @Array[@Plane] | planeExists(@Plane) | @Boolean |
-
-- [ ] When landing a plane already at the airport, planes array should be the same length
-- [ ] when adding same plane twice, it there is only one instance of it in the array
-
-7. As an ATC, I want to tell a plane to take off from an airport only if it is already at the airport, so there aren't any errors
+**5\. As an Air Traffic Contoller, I want to tell a plane to land at an airport if it is not already at the airport, so there aren't any errors**
 
 | Objects | Properties            | Messages            | Output   |
 | ------- | --------------------- | ------------------- | -------- |
 | Plane   | planeId @String       |                     |          |
 | Airport | planes @Array[@Plane] | planeExists(@Plane) | @Boolean |
 
-- [ ] When a plane not at the the airport tries to take off, planes array should be the same length
+- Test 9 - When landing a plane already at the airport, planes array should be the same length
 
-8. As an ATC, I want to be able to override the capacity limit, so that planes can land in emergency circumstances
+<br>
 
-//need to know the capacity and have the ability to change it as needed
+**6\. As an Air Traffic Contoller, I want to tell a plane to take off from an airport only if it is already at the airport, so there aren't any errors**
 
-9. As an ATC, I want to know the capacity limit, so I can decide to override it if necessary
+| Objects | Properties            | Messages            | Output   |
+| ------- | --------------------- | ------------------- | -------- |
+| Plane   | planeId @String       |                     |          |
+| Airport | planes @Array[@Plane] | planeExists(@Plane) | @Boolean |
+
+- Test 10 - When a plane not at the the airport tries to take off, planes array should be the same length
+
+<br>
+
+**7\. As an Air Traffic Contoller, I want to know the capacity limit, so I can decide to override it if necessary**
 
 | Objects | Properties       | Messages      | Output  |
 | ------- | ---------------- | ------------- | ------- |
 | Airport | capacity @Number | getCapacity() | @Number |
 
-- [ ] Function getCapacity should return the capacity limit of the airport
+- Test 11 - Function getCapacity should return the capacity limit of the airport
 
-10. As an ATC, I want be able to change the capacity limit for the airport, so that I can respond to emergencies
+<br>
 
-| Objects | Properties       | Messages                | Output     |
-| ------- | ---------------- | ----------------------- | ---------- |
-| Airport | capacity @Number | modifyCapacity(@Number) | @undefined |
-
-- [ ] Function modifyCapacity should change the airport capacity to the specified amount
-- [ ] Function modifyCapacity should not be able change the capacity to below 0
-
-12. As an ATC, I want to change the decrease the capacity limit up to the number of planes currently at the airport, so that there are no errors
+**8\. As an Air Traffic Contoller, I want be able to change (override) the capacity limit for the airport, so that I can respond to emergencies**
 
 | Objects | Properties       | Messages                | Output     |
 | ------- | ---------------- | ----------------------- | ---------- |
 | Airport | capacity @Number | modifyCapacity(@Number) | @undefined |
 
-- [ ] Function modifyCapacity should not be able change the capacity below the current number of planes at the airport
+- Test 12 - Function modifyCapacity should change the airport capacity to the specified amount
+- Test 13 - Function modifyCapacity should not be able change the capacity to below 0
+
+<br>
+
+**9\. As an Air Traffic Contoller, I want to change the decrease the capacity limit up to the number of planes currently at the airport, so that there are no errors**
+
+| Objects | Properties       | Messages                | Output     |
+| ------- | ---------------- | ----------------------- | ---------- |
+| Airport | capacity @Number | modifyCapacity(@Number) | @undefined |
+
+- Test 14 - Function modifyCapacity should not be able change the capacity below the current number of planes at the airport
+
+---
+
+<br>
+
+## Additional Features
+
+In addition to these features, the client has asked for the following functionality to be implemented if time allows you to do so:
+
+Planes must not be able to land if the weather is stormy
+Planes must not be able to take off if the weather is stormy
+
+**1\. As an Air Traffic Contoller, I want to see if the weather is stormy, so I can safely instruct a plane to land**
+
+| Objects | Properties        | Messages     | Output     |
+| ------- | ----------------- | ------------ | ---------- |
+| Weather | condition @String |              |            |
+| Airport | weather @String   | getWeather() | @undefined |
+|         |                   | isStormy()   | @Boolean   |
+
+- Test 15 - Function getWeather should store the weather condition in the airport's weather property
+- Test 16 - When weather is stormy, function isStormy should return true
+- Test 17 - When weather is not stormy, function isStormy should return false
+
+<br>
+
+**2\. As an Air Traffic Contoller, I want to not let a plane land if the weather is stormy, so it does not cause an accident**
+
+| Objects | Properties            | Messages     | Output     |
+| ------- | --------------------- | ------------ | ---------- |
+| Weather | condition @String     |              |            |
+| Airport |                       | isStormy()   | @Boolean   |
+|         | planes @Array[@Plane] | land(@Plane) | @undefined |
+
+- Test 18 - Trying to landing a plane during stormy weather should not change planes array length
+
+**2\. As an Air Traffic Contoller, I want to not let a plane take off if the weather is stormy, so it does not cause an accident**
+
+| Objects | Properties            | Messages        | Output     |
+| ------- | --------------------- | --------------- | ---------- |
+| Weather | condition @String     |                 |            |
+| Airport |                       | isStormy()      | @Boolean   |
+|         | planes @Array[@Plane] | takeOff(@Plane) | @undefined |
+
+- Test 19 - A plane trying to taking off during stormy weather should not change planes array length
